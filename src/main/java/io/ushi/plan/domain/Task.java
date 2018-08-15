@@ -1,9 +1,6 @@
 package io.ushi.plan.domain;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
@@ -14,7 +11,8 @@ import java.util.List;
 @Entity
 public class Task {
 
-    String type;
+    @Enumerated(EnumType.STRING)
+    Type type;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -116,16 +114,12 @@ public class Task {
 //
 //    String toCompletePerformanceIndex;
 
-//    public enum Type {
-//        Task, Milestone, Group
-//    }
 
-
-    public String getType() {
+    public Type getType() {
         return type;
     }
 
-    public void setType(String type) {
+    public void setType(Type type) {
         this.type = type;
     }
 
@@ -151,5 +145,9 @@ public class Task {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public enum Type {
+        Task, Milestone, Group
     }
 }
