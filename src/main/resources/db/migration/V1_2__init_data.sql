@@ -1,0 +1,1 @@
+INSERT INTO task (type, title, status) VALUES ('Milestone', 'Task 1', 'Y');
