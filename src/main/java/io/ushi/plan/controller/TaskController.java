@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
  *
  */
 @RestController
-@RequestMapping("/task")
+@RequestMapping("/v1/task")
 public class TaskController {
 
     @Autowired
     TaskService taskService;
 
-    @RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Task tasks(@PathVariable("id") Long taskId) {
 
         return taskService.findTask(taskId);

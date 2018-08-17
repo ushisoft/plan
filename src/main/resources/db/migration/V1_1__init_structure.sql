@@ -1,6 +1,31 @@
--- DROP TABLE IF EXISTS "task";
+/* 说明
 
-CREATE SEQUENCE task_id_seq START WITH 1 INCREMENT BY 1;
+1. sequence increment 统一设置为50，保持与SequenceGenerator allocationSize的默认配置一致
+
+*/
+
+
+-- Project Definition ----------------------------------------------
+
+CREATE SEQUENCE project_id_seq START WITH 1 INCREMENT BY 50;
+
+CREATE TABLE "project" (
+  "id" int8 NOT NULL DEFAULT nextval('project_id_seq'::regclass),
+  "title" varchar(150) NOT NULL,
+  "start" timestamp,
+  "end" timestamp,
+  "description" text,
+  "created" timestamp NOT NULL,
+  "createdBy" varchar(50) NOT NULL,
+  "modified" timestamp,
+  "modifiedBy" varchar(50)
+);
+
+ALTER TABLE "project" ADD CONSTRAINT "pk_project" PRIMARY KEY ("id");
+
+-- Task Definition ----------------------------------------------
+
+CREATE SEQUENCE task_id_seq START WITH 1 INCREMENT BY 50;
 
 CREATE TYPE task_type AS ENUM ('Group', 'Task', 'Milestone');
 
@@ -12,3 +37,4 @@ CREATE TABLE "task" (
 );
 
 ALTER TABLE "task" ADD CONSTRAINT "pk_task" PRIMARY KEY ("id");
+

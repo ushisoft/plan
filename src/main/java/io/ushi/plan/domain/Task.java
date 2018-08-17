@@ -18,7 +18,7 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     Long id;
 
-//    Long parentId;
+//    Long groupId;
 
     /**  */
     String title;

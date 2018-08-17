@@ -1,3 +1,6 @@
+server:
+  servlet:
+    context-path: /plan
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/plan
@@ -8,6 +11,8 @@ spring:
     properties:
       hibernate:
         jdbc.lob.non_contextual_creation: true
+        # 关键字转义
+        globally_quoted_identifiers: true
   profiles:
     active: dev
 
