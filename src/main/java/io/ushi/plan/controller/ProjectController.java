@@ -5,8 +5,15 @@ import io.ushi.plan.dto.ProjectDTO;
 import io.ushi.plan.dto.ProjectMapper;
 import io.ushi.plan.repository.ProjectRepository;
 import io.ushi.plan.service.ProjectService;
+import org.apache.coyote.ErrorState;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -24,16 +31,17 @@ public class ProjectController {
     @Autowired
     ProjectMapper projectMapper;
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping(value = "/{id}")
     public Project find(@PathVariable("id") Long projectId) {
 
         return projectService.findProject(projectId);
     }
 
-    @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Project create(@RequestBody ProjectDTO projectDTO) {
+    @PostMapping(value = "/")
+    public ResponseEntity create(@Valid @RequestBody ProjectDTO projectDTO) {
 
-        return projectRepository.save(projectMapper.from(projectDTO));
+        projectRepository.save(projectMapper.from(projectDTO));
+        return ResponseEntity.ok(HttpStatus.OK);
     }
 
     // modify
