@@ -1,5 +1,7 @@
 package io.ushi.plan.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -8,6 +10,7 @@ import java.util.Date;
  * 资源
  */
 @Entity
+@Data
 public class Resource {
 
     @Id

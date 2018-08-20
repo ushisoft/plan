@@ -15,10 +15,10 @@ CREATE TABLE "project" (
   "start" timestamp,
   "end" timestamp,
   "description" text,
-  "created" timestamp NOT NULL,
-  "createdBy" varchar(50) NOT NULL,
-  "modified" timestamp,
-  "modifiedBy" varchar(50)
+  "created_time" timestamp,
+  "created_by" varchar(50),
+  "lastmodified_time" timestamp,
+  "lastmodified_by" varchar(50)
 );
 
 ALTER TABLE "project" ADD CONSTRAINT "pk_project" PRIMARY KEY ("id");

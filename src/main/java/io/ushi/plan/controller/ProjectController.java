@@ -1,6 +1,8 @@
 package io.ushi.plan.controller;
 
 import io.ushi.plan.domain.Project;
+import io.ushi.plan.dto.ProjectDTO;
+import io.ushi.plan.dto.ProjectMapper;
 import io.ushi.plan.repository.ProjectRepository;
 import io.ushi.plan.service.ProjectService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ProjectController {
     @Autowired
     ProjectRepository projectRepository; // for test
 
+    @Autowired
+    ProjectMapper projectMapper;
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Project find(@PathVariable("id") Long projectId) {
 
@@ -26,9 +31,9 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public Project create(@RequestBody Project project) {
+    public Project create(@RequestBody ProjectDTO projectDTO) {
 
-        return projectRepository.save(project);
+        return projectRepository.save(projectMapper.from(projectDTO));
     }
 
     // modify
@@ -36,4 +41,7 @@ public class ProjectController {
     // modifySelective
 
     // delete
+
+    // public Object update(@PathVariable String id,
+    //            @RequestBody ChannelCardProduct channelCardProduct) {
 }

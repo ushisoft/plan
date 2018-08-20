@@ -1,5 +1,7 @@
 package io.ushi.plan.domain;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.List;
  * 任务
  */
 @Entity
+@Data
 public class Task {
 
     @Enumerated(EnumType.STRING)
@@ -113,39 +116,6 @@ public class Task {
 //    BigDecimal scheduleVariancePercent;
 //
 //    String toCompletePerformanceIndex;
-
-
-    public Type getType() {
-        return type;
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public enum Type {
         Task, Milestone, Group
