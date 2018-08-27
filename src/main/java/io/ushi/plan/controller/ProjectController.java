@@ -5,7 +5,6 @@ import io.ushi.plan.dto.ProjectForm;
 import io.ushi.plan.dto.ProjectMapper;
 import io.ushi.plan.service.ProjectService;
 import io.ushi.validation.group.Create;
-import io.ushi.validation.group.Modify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,18 +38,20 @@ public class ProjectController {
     }
 
     // modify
-    @PatchMapping(value = "/")
-    public ResponseEntity modify(@Validated(Modify.class) @RequestBody ProjectForm projectForm) {
+    @PatchMapping(value = "/{id}")
+    public ResponseEntity modify(@PathVariable("id") Long projectId, @Validated @RequestBody ProjectForm projectForm) {
 
-        projectService.modify(projectMapper.toDomain(projectForm));
+        projectService.modify(projectId, projectMapper.toDomain(projectForm));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
-
-    // modifySelective
-
     // delete
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity delete(@PathVariable("id") Long projectId) {
 
-    // public Object update(@PathVariable String id,
-    //            @RequestBody ChannelCardProduct channelCardProduct) {
+        projectService.delete(projectId);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    // put::update
 }

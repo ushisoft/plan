@@ -28,8 +28,8 @@ public class ProjectService {
         projectRepository.save(project);
     }
 
-    public void modify(Project project) {
-        Optional<Project> existingData = projectRepository.findById(project.getId());
+    public void modify(Long projectId, Project project) {
+        Optional<Project> existingData = projectRepository.findById(projectId);
         existingData.ifPresent(obj -> {
             BeanUtils.copyProperties(project, obj, BeanUtilsExt.getNullPropertyNames(project));
             projectRepository.save(obj);

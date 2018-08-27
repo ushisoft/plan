@@ -1,20 +1,16 @@
 package io.ushi.plan.dto;
 
-import io.ushi.validation.group.Create;
-import io.ushi.validation.group.Modify;
 import lombok.Data;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Data
 public class ProjectForm {
 
-    @NotNull(groups = Modify.class)
-    Long id;
-
-    @NotEmpty(message = "{Project.title}{NotEmpty}", groups = Create.class)
+    @NotEmpty(message = "{Project.title}{NotEmpty}")
+    @Length(max = 10) // for test
     String title;
 
     Date start;
