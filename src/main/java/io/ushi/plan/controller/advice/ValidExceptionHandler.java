@@ -1,6 +1,6 @@
 package io.ushi.plan.controller.advice;
 
-import org.springframework.context.support.DefaultMessageSourceResolvable;
+import io.ushi.rest.ErrorEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,14 +14,23 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class ValidExceptionHandler {
 
+    // 422, UNPROCESSABLE_ENTITY 数据格式错误
+    // 401, UNAUTHORIZED 鉴权失败
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
-    public List<String> process(MethodArgumentNotValidException ex) {
+    public List<ErrorEntity> process(MethodArgumentNotValidException ex) {
         return ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                .map(source -> {
+                    ErrorEntity target = new ErrorEntity();
+                    target.setField(source.getField());
+                    target.setCode(source.getCode());
+                    target.setMessage(source.getDefaultMessage());
+                    return target;
+                })
                 .collect(Collectors.toList());
     }
 }

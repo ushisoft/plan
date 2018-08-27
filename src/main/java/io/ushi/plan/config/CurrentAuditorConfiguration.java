@@ -6,7 +6,7 @@ import org.springframework.data.domain.AuditorAware;
 import java.util.Optional;
 
 @Configuration
-public class OperatorAuditorBean implements AuditorAware<Long> {
+public class CurrentAuditorConfiguration implements AuditorAware<Long> {
 
     @Override
     public Optional getCurrentAuditor() {

@@ -11,5 +11,5 @@ public interface ProjectMapper {
     @Mappings({
             @Mapping(target = "createdTime", source = "end")
     })
-    Project from(ProjectDTO projectDTO);
+    Project toDomain(ProjectForm projectForm);
 }

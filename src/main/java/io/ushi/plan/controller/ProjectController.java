@@ -1,19 +1,16 @@
 package io.ushi.plan.controller;
 
 import io.ushi.plan.domain.Project;
-import io.ushi.plan.dto.ProjectDTO;
+import io.ushi.plan.dto.ProjectForm;
 import io.ushi.plan.dto.ProjectMapper;
-import io.ushi.plan.repository.ProjectRepository;
 import io.ushi.plan.service.ProjectService;
-import org.apache.coyote.ErrorState;
+import io.ushi.validation.group.Create;
+import io.ushi.validation.group.Modify;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.Errors;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import javax.validation.Valid;
-import java.util.stream.Collectors;
 
 /**
  *
@@ -26,9 +23,6 @@ public class ProjectController {
     ProjectService projectService;
 
     @Autowired
-    ProjectRepository projectRepository; // for test
-
-    @Autowired
     ProjectMapper projectMapper;
 
     @GetMapping(value = "/{id}")
@@ -38,13 +32,20 @@ public class ProjectController {
     }
 
     @PostMapping(value = "/")
-    public ResponseEntity create(@Valid @RequestBody ProjectDTO projectDTO) {
+    public ResponseEntity create(@Validated(Create.class) @RequestBody ProjectForm projectForm) {
 
-        projectRepository.save(projectMapper.from(projectDTO));
+        projectService.save(projectMapper.toDomain(projectForm));
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
     // modify
+    @PatchMapping(value = "/")
+    public ResponseEntity modify(@Validated(Modify.class) @RequestBody ProjectForm projectForm) {
+
+        projectService.modify(projectMapper.toDomain(projectForm));
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
 
     // modifySelective
 

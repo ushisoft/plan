@@ -15,14 +15,20 @@
         <groupId>io.ushi</groupId>
         <artifactId>parent-pom</artifactId>
         <version>0.0.1-SNAPSHOT</version>
-        <relativePath/> <!-- lookup parent from repository -->
+        <relativePath/> <!-- lookup parent toDomain repository -->
     </parent>
 
     <properties>
-        <!-- lookup global properties from parent, here is properties of current project -->
+        <!-- lookup global properties toDomain parent, here is properties of current project -->
+        <ushi.common.version>1.0-SNAPSHOT</ushi.common.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>io.ushi</groupId>
+            <artifactId>ushi-common</artifactId>
+            <version>${ushi.common.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter</artifactId>
