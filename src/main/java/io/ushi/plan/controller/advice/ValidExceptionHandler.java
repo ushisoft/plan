@@ -1,5 +1,6 @@
 package io.ushi.plan.controller.advice;
 
+import io.ushi.exception.UnexpectedLogicException;
 import io.ushi.rest.ErrorEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -8,6 +9,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -20,17 +22,21 @@ public class ValidExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ResponseBody
-    public List<ErrorEntity> process(MethodArgumentNotValidException ex) {
+    public List<ErrorEntity> processBeanValidation(MethodArgumentNotValidException ex) {
         return ex.getBindingResult()
                 .getFieldErrors()
                 .stream()
-                .map(source -> {
-                    ErrorEntity target = new ErrorEntity();
-                    target.setField(source.getField());
-                    target.setCode(source.getCode());
-                    target.setMessage(source.getDefaultMessage());
-                    return target;
-                })
+                .map(source -> ErrorEntity.field(source.getField())
+                        .error(source.getCode())
+                        .message(source.getDefaultMessage())
+                        .build())
                 .collect(Collectors.toList());
+    }
+
+    @ExceptionHandler(UnexpectedLogicException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public List<ErrorEntity> processUnexpectedLogic(UnexpectedLogicException ex) {
+        return Arrays.asList(ex.getErrorEntity());
     }
 }

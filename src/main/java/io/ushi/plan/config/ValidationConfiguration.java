@@ -1,5 +1,7 @@
 package io.ushi.plan.config;
 
+import io.ushi.validation.DefaultErrorErrorMessageResolver;
+import io.ushi.validation.ErrorMessageResolver;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,5 +35,12 @@ public class ValidationConfiguration {
         LocalValidatorFactoryBean bean = new LocalValidatorFactoryBean();
         bean.setValidationMessageSource(messageSource());
         return bean;
+    }
+
+    @Bean
+    public ErrorMessageResolver errorMessageResolver() {
+        DefaultErrorErrorMessageResolver resolver = new DefaultErrorErrorMessageResolver();
+        resolver.setLocale(Locale.CHINA);
+        return resolver;
     }
 }
