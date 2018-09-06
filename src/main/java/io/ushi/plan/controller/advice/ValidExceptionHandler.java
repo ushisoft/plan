@@ -27,7 +27,7 @@ public class ValidExceptionHandler {
                 .getFieldErrors()
                 .stream()
                 .map(source -> ErrorEntity.field(source.getField())
-                        .error(source.getCode())
+                        .code(source.getCode())
                         .message(source.getDefaultMessage())
                         .build())
                 .collect(Collectors.toList());

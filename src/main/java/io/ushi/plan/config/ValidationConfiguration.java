@@ -1,6 +1,6 @@
 package io.ushi.plan.config;
 
-import io.ushi.validation.DefaultErrorErrorMessageResolver;
+import io.ushi.validation.DefaultErrorMessageResolver;
 import io.ushi.validation.ErrorMessageResolver;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
@@ -39,7 +39,7 @@ public class ValidationConfiguration {
 
     @Bean
     public ErrorMessageResolver errorMessageResolver() {
-        DefaultErrorErrorMessageResolver resolver = new DefaultErrorErrorMessageResolver();
+        DefaultErrorMessageResolver resolver = new DefaultErrorMessageResolver();
         resolver.setLocale(Locale.CHINA);
         return resolver;
     }
