@@ -2,6 +2,8 @@ package io.ushi.plan.controller.advice;
 
 import io.ushi.exception.UnexpectedLogicException;
 import io.ushi.rest.ErrorEntity;
+import io.ushi.validation.ErrorMessageResolver;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -18,6 +20,9 @@ public class ValidExceptionHandler {
 
     // 422, UNPROCESSABLE_ENTITY 数据格式错误
     // 401, UNAUTHORIZED 鉴权失败
+
+    @Autowired
+    ErrorMessageResolver errorMessageResolver;
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -37,6 +42,6 @@ public class ValidExceptionHandler {
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
     public List<ErrorEntity> processUnexpectedLogic(UnexpectedLogicException ex) {
-        return Arrays.asList(ex.getErrorEntity());
+        return Arrays.asList(errorMessageResolver.resolve(ex.getField(), ex.getError()));
     }
 }

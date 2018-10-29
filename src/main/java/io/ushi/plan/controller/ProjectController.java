@@ -11,6 +11,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 /**
  *
  */
@@ -50,6 +52,14 @@ public class ProjectController {
     public ResponseEntity delete(@PathVariable("id") Long projectId) {
 
         projectService.delete(projectId);
+        return ResponseEntity.ok(HttpStatus.OK);
+    }
+
+    // query
+    @PostMapping(value = "/query")
+    public ResponseEntity query(@RequestBody String criteria) {
+
+        System.out.println(criteria);
         return ResponseEntity.ok(HttpStatus.OK);
     }
 
