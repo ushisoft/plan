@@ -58,7 +58,7 @@ public class ProjectService {
         query.select(builder.construct(Project.class, root.get("title"), root.get("start")));
 
         Predicate predicate = builder.conjunction();
-        predicate.in()
+//        predicate.in()
         query.where(predicate);
 
     }

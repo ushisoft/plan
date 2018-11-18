@@ -17,7 +17,7 @@ import java.util.Map;
  *
  */
 @RestController
-@RequestMapping("/v1/project")
+@RequestMapping("/project/v1")
 public class ProjectController {
 
     @Autowired
